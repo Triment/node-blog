@@ -1,0 +1,36 @@
+name: Node Blog CI
+
+on:
+  push:
+    branches-ignore:
+    - release
+  pull_request:
+    branches-ignore:
+    - release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+        mongodb-version: ['5.0']
+    steps:
+    - uses: actions/checkout@v2
+    - name: Launch MongoDB
+      uses: supercharge/mongodb-github-action@1.8.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@master
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install, build, and test
+      run: |
+        npm install --legacy-peer-deps
+        npm run build
+        npm run test:cov
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
