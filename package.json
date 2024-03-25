@@ -71,7 +71,7 @@
     "@emotion/react": "^11.11.3",
     "@faker-js/faker": "^8.4.0",
     "@nestjs/cli": "^10.3.0",
-    "@nestjs/testing": "^10.3.1",
+    "@nestjs/testing": "^10.3.5",
     "@next/eslint-plugin-next": "^14.1.0",
     "@reduxjs/toolkit": "^2.1.0",
     "@tiptap/extension-image": "^2.1.16",
